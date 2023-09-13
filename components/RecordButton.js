@@ -3,12 +3,14 @@ import { Foundation } from '@expo/vector-icons';
 import { useState,useEffect } from 'react';
 import { Audio } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
+import * as Haptics from 'expo-haptics';
 
 const RecordButton = (props) => {
     const {SetAppListen,audio,setAudio}=props;
     const[islisteng,setlistening]=useState(false);
     
     const startRecord=()=>{
+      Haptics.selectionAsync();
         if(islisteng){
             setlistening(false);
             SetAppListen(false);
