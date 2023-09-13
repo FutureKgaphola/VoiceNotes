@@ -12,13 +12,13 @@ import { useState } from "react";
 
 const RecordingList = (props) => {
   const {audio,setAudio}=props;
-  const[isStopallow,ShowStop]=useState(false);
+  const [itemIdchange,setItemIdchange]=useState(-1);
   const playbackObject = new Audio.Sound();
-   const presPlay=(media)=>{
-    if(isStopallow===false){
+   const presPlay=(media,id)=>{
+    var curId=id;
       playbackObject.loadAsync({ uri:media}).then(()=>{
         playbackObject.playAsync().then(()=>{
-          ShowStop(true);
+          OnPlay(curId);
         }).catch((pl)=>{
           console.log(pl);
           playbackObject.stopAsync();
@@ -27,17 +27,47 @@ const RecordingList = (props) => {
         console.log(err);
         playbackObject.stopAsync();
       });
-    }else{
-      ShowStop(false);
-      //playbackObject.stopAsync();
-    }
+      playbackObject._onPlaybackStatusUpdate=playbackStatus=>{
+        if (playbackStatus.didJustFinish && !playbackStatus.isLooping) {
+          setItemIdchange(-1);
+          audio.forEach(element => {
+            if(element.isplaying===true){
+              
+              element.isplaying=false;
+              element.Icon='play-circle';
+              setAudio(audio);
+              setItemIdchange(element.id);
+            }else{
+              setItemIdchange(element.id);
+            }
+      
+          });
+          
+          
+        }
+      }
+    
         
    }
    
    const Ondelete=(id)=> setAudio((audio)=>audio.filter((aFile)=>aFile.id!==id))
+   const OnPlay=(id)=>{
+    setItemIdchange(-1);
+    audio.forEach(element => {
+      if(element.id===id){
+        element.isplaying=true;
+        element.Icon='stop';
+        setItemIdchange(id);
+        setAudio(audio);
+      }
+
+    });
+
+   }
   return (
     <View style={styles.Listcontainer}>
       <FlatList
+        extraData={itemIdchange}
         keyExtractor={(item) => item.id}
         data={audio}
         renderItem={({ item }) => (
@@ -49,11 +79,9 @@ const RecordingList = (props) => {
               />
               <Text style={{alignSelf:"center"}}>{item.name}</Text>
             </View>
-            {isStopallow ? <TouchableOpacity onPress={()=>presPlay(item.uri)} style={styles.btn}>
-            <FontAwesome name="stop" size={24} color="black" />
-            </TouchableOpacity> : <TouchableOpacity onPress={()=>presPlay(item.uri)} style={styles.btn}>
-            <FontAwesome name="play-circle" size={24} color="black" />
-            </TouchableOpacity>}
+            <TouchableOpacity onPress={()=>presPlay(item.uri,item.id)} style={styles.btn}>
+              <FontAwesome name={item.Icon} size={24} color="black" />
+            </TouchableOpacity>
             
             <TouchableOpacity onPress={()=>Ondelete(item.id)} style={styles.btn}>
               <Ionicons name="ios-trash-bin" size={24} color="black" />

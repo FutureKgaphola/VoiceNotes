@@ -3,7 +3,6 @@ import { Foundation } from '@expo/vector-icons';
 import { useState,useEffect } from 'react';
 import { Audio } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const RecordButton = (props) => {
     const {SetAppListen,audio,setAudio}=props;
@@ -91,7 +90,8 @@ const RecordButton = (props) => {
         setAudio([...audio,{ uri: mfile ,
         name:fileName,
         id:fileName,
-        isplaying:false }]);
+        isplaying:false,
+        Icon:'play-circle' }]);
         // resert our states to record again
         setRecording(null);
         setRecordingStatus('stopped');
@@ -106,7 +106,7 @@ const RecordButton = (props) => {
     if (recording) {
       const audioUri = await stopRecording(recording);
       if (audioUri) {
-        console.log('Saved audio file to', savedUri);
+        console.log('Saved audio file');
       }
     } else {
       await startRecording();
