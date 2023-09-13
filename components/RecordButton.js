@@ -90,7 +90,8 @@ const RecordButton = (props) => {
         var mfile=FileSystem.documentDirectory + 'Vrecordings/' + `${fileName}`;
         setAudio([...audio,{ uri: mfile ,
         name:fileName,
-        id:fileName }]);
+        id:fileName,
+        isplaying:false }]);
         // resert our states to record again
         setRecording(null);
         setRecordingStatus('stopped');

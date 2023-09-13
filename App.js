@@ -22,7 +22,7 @@ export default function App() {
         {isHome ? (
           <MakeRecord isAppListen={isAppListen} />
         ) : (
-          <RecordingList audio={audio} />
+          <RecordingList audio={audio} setAudio={setAudio}/>
         )}
 
         {isHome && <RecordButton SetAppListen={SetAppListen} audio={audio} setAudio={setAudio}/>}

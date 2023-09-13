@@ -10,7 +10,8 @@ import { Ionicons,FontAwesome } from "@expo/vector-icons";
 import { Audio } from 'expo-av';
 import { useState } from "react";
 
-const RecordingList = ({audio}) => {
+const RecordingList = (props) => {
+  const {audio,setAudio}=props;
   const[isStopallow,ShowStop]=useState(false);
   const playbackObject = new Audio.Sound();
    const presPlay=(media)=>{
@@ -28,11 +29,12 @@ const RecordingList = ({audio}) => {
       });
     }else{
       ShowStop(false);
-      playbackObject.stopAsync();
+      //playbackObject.stopAsync();
     }
         
    }
-   const Ondelete=(id)=> audio.filter(audio.id!==id)
+   
+   const Ondelete=(id)=> setAudio((audio)=>audio.filter((aFile)=>aFile.id!==id))
   return (
     <View style={styles.Listcontainer}>
       <FlatList
