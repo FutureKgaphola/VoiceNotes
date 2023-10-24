@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   signT: {
-    marginTop: 12,
+    marginTop: 20,
     marginLeft: 10,
     flexDirection: "row",
   },
