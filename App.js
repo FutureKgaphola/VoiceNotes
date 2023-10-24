@@ -1,33 +1,28 @@
-import { useState } from "react";
-import { StyleSheet, View } from "react-native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import RecordButton from "./components/RecordButton";
-import Header from "./components/Header";
-import MakeRecord from "./components/MakeRecord";
-import RecordingList from "./components/RecordingList";
+import { StyleSheet } from "react-native";
+import { ProfileProvider } from "./Manager/ProfileManager";
+import LoginScreen from "./screen/Login";
+import HomeRecorder from "./screen/HomeRecorder";
+import Forgotpassword from "./screen/Forgotpassword";
+import RegistrationPage from "./screen/Register";
+import Profile from "./screen/Profile";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
+const Stack = createNativeStackNavigator();
+const options={title:'',headerShown: false};
 export default function App() {
-  const [isHome, setHome] = useState(true);
-  const [isAppListen, SetAppListen] = useState(false);
-  const [audio, setAudio] = useState([]);
   return (
-    <SafeAreaProvider>
-      <View style={styles.container}>
-        <Header
-          isHome={isHome}
-          setHome={setHome}
-          SetAppListen={SetAppListen}
-          isAppListen={isAppListen}
-        />
-        {isHome ? (
-          <MakeRecord isAppListen={isAppListen} />
-        ) : (
-          <RecordingList audio={audio} setAudio={setAudio}/>
-        )}
-
-        {isHome && <RecordButton SetAppListen={SetAppListen} audio={audio} setAudio={setAudio}/>}
-      </View>
-    </SafeAreaProvider>
+    <ProfileProvider>
+    <NavigationContainer>
+       <Stack.Navigator initialRouteName="LoginScreen">
+        <Stack.Screen name="LoginScreen" component={LoginScreen} options={options}/>
+        <Stack.Screen name="HomeRecorder" component={HomeRecorder} options={options}/>
+        <Stack.Screen name="Forgotpassword" component={Forgotpassword} options={options}/> 
+        <Stack.Screen name="RegistrationPage" component={RegistrationPage} options={options}/>
+        <Stack.Screen name="Profile" component={Profile} options={options}/>
+      </Stack.Navigator>
+    </NavigationContainer>
+    </ProfileProvider>
   );
 }
 

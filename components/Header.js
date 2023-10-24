@@ -1,9 +1,9 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons,FontAwesome } from "@expo/vector-icons";
 import { useState } from "react";
 
 const Header = (props) => {
-  const { isHome, setHome, SetAppListen, isAppListen } = props;
+  const { isHome, setHome, SetAppListen, isAppListen,navigation } = props;
   const [currpage, Setpage] = useState("List");
   const toogle = () => {
     isHome ? setHome(false) : setHome(true);
@@ -31,15 +31,21 @@ const Header = (props) => {
         Voice Recorder
       </Text>
       <View style={styles.rightcorner}>
+      <TouchableOpacity style={{alignSelf:"center",marginRight:10}}
+      onPress={()=>navigation.navigate('Profile')}>
+      <FontAwesome name="user-circle-o" size={34} style={{alignSelf:"center"}} color="black" />
+      </TouchableOpacity>
         <Text onPress={()=>toogle()} style={{ alignSelf: "center", fontWeight: "600" }}>
           {currpage}
         </Text>
+        
         <TouchableOpacity
           onPress={() => toogle()}
           style={{ alignSelf: "center" }}
         >
           <Ionicons name="menu" size={34} color="black" />
         </TouchableOpacity>
+        
       </View>
     </View>
   );
@@ -53,7 +59,6 @@ const styles = StyleSheet.create({
   },
   rightcorner: {
     flexDirection: "row",
-    backgroundColor: "white",
     justifyContent: "center",
     marginRight: 5,
   },
