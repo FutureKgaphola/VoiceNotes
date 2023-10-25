@@ -51,6 +51,7 @@ function Forgotpassword({ navigation }) {
         style={styles.input1}
         placeholder="Email"
         value={Username}
+        cursorColor={'black'}
         onChangeText={(text) => setUsername(text)}
       />
 

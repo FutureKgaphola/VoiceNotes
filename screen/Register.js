@@ -69,6 +69,7 @@ function RegistrationPage({ navigation }) {
         style={styles.input1}
         placeholder="Name"
         value={Name}
+        cursorColor={'black'}
         onChangeText={(text) => setName(text)}
       />
 
@@ -78,6 +79,7 @@ function RegistrationPage({ navigation }) {
               placeholder="Phone"
               inputMode="tel"
               maxLength={10}
+              cursorColor={'black'}
               value={Phone}
               onChangeText={(text) => setPhone(text)}
             />
@@ -87,6 +89,7 @@ function RegistrationPage({ navigation }) {
         style={styles.input1}
         placeholder="Email"
         value={Username}
+        cursorColor={'black'}
         onChangeText={(text) => setUsername(text.trim())}
       />
       <Text style={styles.title3}>passsword</Text>
@@ -94,6 +97,7 @@ function RegistrationPage({ navigation }) {
         style={styles.input1}
         placeholder="Password"
         value={Password}
+        cursorColor={'black'}
         secureTextEntry={true}
         onChangeText={(text) => setPassword(text)}
       />

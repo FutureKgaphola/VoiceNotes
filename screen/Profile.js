@@ -71,6 +71,7 @@ const Profile = ({ navigation }) => {
         style={styles.input1}
         placeholder="Name"
         value={Name}
+        cursorColor={'black'}
         onChangeText={(text) => setName(text)}
       />
 
@@ -79,6 +80,7 @@ const Profile = ({ navigation }) => {
               style={styles.input1}
               placeholder="Phone"
               inputMode="tel"
+              cursorColor={'black'}
               maxLength={10}
               value={Phone}
               onChangeText={(text) => setPhone(text)}
